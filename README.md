@@ -42,7 +42,7 @@ public/                      tudo que o visitante vê (HTML, CSS, imagens)
   assets/js/checkout.js      validação dos campos e chamada da API
   assets/img/
 
-app.js                       as rotas /api/* e a integração com a Asaas
+routes.js                       as rotas /api/* e a integração com a Asaas
 server.js                    inicialização; fora do Docker também entrega public/
 api/                         credenciais locais e imagem Docker da API
   .env                       suas credenciais (não vai para o Git)
@@ -56,7 +56,7 @@ docs/                        guia de publicação na VPS
 compose.yaml                 orquestração dos containers
 ```
 
-Regra prática: **conteúdo e visual ficam em `public/`, regras de pagamento em `app.js`.**
+Regra prática: **conteúdo e visual ficam em `public/`, regras de pagamento em `routes.js`.**
 
 ---
 
@@ -77,13 +77,13 @@ Edite os arquivos em `public/` com qualquer editor e recarregue o navegador. Nã
 
 ⚠️ **O preço aparece em dois lugares e os dois precisam ser alterados juntos:**
 
-1. `app.js`, no objeto `PLANOS` — é o valor realmente cobrado.
+1. `routes.js`, no objeto `PLANOS` — é o valor realmente cobrado.
 2. Os arquivos `public/checkout-*.html` e `public/index.html` — é o valor exibido.
 
 Se eles divergirem, o cliente vê um preço e paga outro.
 
 ```js
-// app.js
+// routes.js
 const PLANOS = {
   mensal: { titulo: "Plano Mensal", valor: 24.9 },
   anual: { titulo: "Plano Anual", valor: 169.9 },
@@ -92,7 +92,7 @@ const PLANOS = {
 
 ### Adicionar um plano
 
-1. Acrescente a entrada em `PLANOS` (`app.js`).
+1. Acrescente a entrada em `PLANOS` (`routes.js`).
 2. Duplique um `public/checkout-*.html`, ajuste título e preço e mude o `data-plano="..."` na `<section class="payment-box">` para a chave nova.
 3. Adicione o card e o link na seção "Escolha o seu plano" de `public/index.html`.
 
@@ -136,7 +136,7 @@ curl http://localhost:3001/api/saude
 | `POST` | `/api/pagamentos` | Cria a cobrança e devolve o QR Code. Corpo: `plano`, `nome`, `email`, `telefone`, `cpf` |
 | `GET` | `/api/pagamentos/:id` | Consulta o status: `pending`, `approved` ou `cancelled` |
 
-E-mail, celular e CPF são validados no navegador **e** novamente no servidor — a validação do navegador é só conveniência, quem decide é `app.js`.
+E-mail, celular e CPF são validados no navegador **e** novamente no servidor — a validação do navegador é só conveniência, quem decide é `routes.js`.
 
 Depois de gerar o QR Code, a página consulta o status a cada 3 segundos por até 5 minutos e avisa quando o pagamento é confirmado.
 

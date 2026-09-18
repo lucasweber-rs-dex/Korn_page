@@ -7,11 +7,10 @@ require("dotenv").config({ path: path.join(__dirname, "api", ".env") });
 
 const express = require("express");
 
-const app = require("./app");
+const app = require("./routes");
 
 const PORT = Number(process.env.PORT) || 3000;
 // Em produção o Nginx entrega os arquivos estáticos; aqui isso é desligado com SERVE_STATIC=0.
-// No Vercel a pasta public/ é servida automaticamente.
 const SERVE_STATIC = process.env.SERVE_STATIC !== "0";
 const PUBLIC_DIR = path.join(__dirname, "public");
 
@@ -30,6 +29,10 @@ if (SERVE_STATIC) {
     res.setHeader("X-Frame-Options", "DENY");
     res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
     next();
+  });
+
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(PUBLIC_DIR, "index.html"));
   });
 
   app.use(express.static(PUBLIC_DIR, { extensions: ["html"] }));
