@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Finalizar Compra — Plano Anual — tudo.conecta.ai</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/checkout.css">
+</head>
+<body>
+  <div class="checkout-shell">
+
+    <header class="checkout-header">
+      <a class="brand" href="/" aria-label="tudo.conecta.ai — início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4Z"/><path d="M13 7v2m0 6v2"/></svg>
+        </span>
+        <span>tudo.conecta.ai</span>
+      </a>
+      <a class="back-link" href="/">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6 6-6-6 6-6"/></svg>
+        Voltar aos planos
+      </a>
+    </header>
+
+    <main>
+      <div class="checkout-intro">
+        <h1>Finalizar Compra</h1>
+        <p>Preencha seus dados e escolha como pagar</p>
+      </div>
+
+      <section class="product-card" aria-label="Resumo do pedido">
+        <span class="product-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 9h18"/></svg>
+        </span>
+        <div class="product-info">
+          <h2>Plano Anual</h2>
+          <p>365 dias de acesso completo</p>
+        </div>
+        <p class="product-price">R$ 169,90 <small>/ano</small></p>
+      </section>
+
+      <form class="field-grid" novalidate>
+        <div class="field">
+          <label for="nome">Seu nome</label>
+          <input id="nome" name="nome" autocomplete="name" placeholder="Nome completo">
+        </div>
+        <div class="field">
+          <label for="email">Seu e-mail</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="email@exemplo.com">
+        </div>
+        <div class="field">
+          <label for="telefone">Celular / WhatsApp</label>
+          <input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+        </div>
+        <div class="field">
+          <label for="cpf">CPF do titular</label>
+          <input id="cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00">
+        </div>
+      </form>
+
+      <p class="notice">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8.5v.5"/></svg>
+        De acordo com o Banco Central, é obrigatório o uso do CPF do mesmo titular para compra e pagamento via Pix.
+      </p>
+
+      <section class="payment-box" aria-labelledby="titulo-pagamento" data-plano="anual">
+        <h2 class="payment-title" id="titulo-pagamento">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6Z"/></svg>
+          Pague agora e receba o código em segundos
+        </h2>
+
+        <button class="pay-button" type="button" disabled aria-describedby="status-pagamento">
+          GERAR PIX
+          <span>R$ 169,90</span>
+        </button>
+
+        <p class="pay-status" id="status-pagamento" role="status">Preencha e-mail, celular e CPF válidos para liberar a geração do Pix.</p>
+
+        <div class="pix-result" id="pix-resultado" hidden>
+          <img class="pix-qr" id="pix-qr" alt="QR Code Pix">
+          <p class="pix-copy-label">Ou copie o código Pix:</p>
+          <div class="pix-copy-row">
+            <code class="pix-code" id="pix-codigo"></code>
+            <button class="pix-copy-button" type="button" id="pix-copiar">Copiar</button>
+          </div>
+        </div>
+
+        <div class="badges">
+          <span><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg> Pix regulado pelo Banco Central</span>
+          <span><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg> Código entregue em segundos</span>
+          <span><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg> Compra 100% segura</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="checkout-footer">
+      <span>© 2026 tudo.conecta.ai</span>
+      <span>Ambiente de demonstração</span>
+    </footer>
+  </div>
+  <script src="/assets/js/checkout.js" defer></script>
+</body>
+</html>

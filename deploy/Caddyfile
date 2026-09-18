@@ -1,0 +1,15 @@
+desertfoxlabs.com {
+    encode zstd gzip
+
+    handle /api/* {
+        reverse_proxy api:3001
+    }
+    handle {
+        reverse_proxy pagina:8080
+    }
+
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "tahingresso-loja",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Loja tahingresso: site estático em public/ e API de Pix (Asaas) em api/.",
+  "scripts": {
+    "start": "node api/server.js",
+    "install:api": "npm --prefix api install"
+  }
+}
