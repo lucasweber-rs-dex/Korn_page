@@ -12,7 +12,7 @@ const app = require("./app");
 const PORT = Number(process.env.PORT) || 3000;
 // Em produção o Nginx entrega os arquivos estáticos; aqui isso é desligado com SERVE_STATIC=0.
 // No Vercel a pasta public/ é servida automaticamente.
-const SERVE_STATIC = process.env.SERVE_STATIC !== "0" && process.env.VERCEL !== "1";
+const SERVE_STATIC = process.env.SERVE_STATIC !== "0";
 const PUBLIC_DIR = path.join(__dirname, "public");
 
 if (!process.env.ASAAS_API_KEY) {
