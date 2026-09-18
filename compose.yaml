@@ -21,7 +21,9 @@ services:
     cpus: 0.25
 
   api:
-    build: ./api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
     container_name: tahingresso-api
     restart: unless-stopped
     env_file:

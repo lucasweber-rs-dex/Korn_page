@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci --omit=dev || npm install --omit=dev
 
-COPY server.js app.js ./
+COPY app.js server.js ./
 
 USER node
 ENV SERVE_STATIC=0

@@ -2,9 +2,13 @@
   "name": "tahingresso-loja",
   "version": "2.0.0",
   "private": true,
-  "description": "Loja tahingresso: site estático em public/ e API de Pix (Asaas) em api/.",
+  "description": "Loja tahingresso: site estático em public/ e API de Pix (Asaas).",
   "scripts": {
-    "start": "node api/server.js",
-    "install:api": "npm --prefix api install"
+    "start": "node server.js",
+    "install:api": "npm install"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   }
 }

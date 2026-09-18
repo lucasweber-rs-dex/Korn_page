@@ -3,7 +3,7 @@
 const path = require("path");
 
 // O .env vive em api/, independente de onde o processo foi iniciado.
-require("dotenv").config({ path: path.join(__dirname, ".env") });
+require("dotenv").config({ path: path.join(__dirname, "api", ".env") });
 
 const express = require("express");
 
@@ -11,8 +11,9 @@ const app = require("./app");
 
 const PORT = Number(process.env.PORT) || 3000;
 // Em produção o Nginx entrega os arquivos estáticos; aqui isso é desligado com SERVE_STATIC=0.
-const SERVE_STATIC = process.env.SERVE_STATIC !== "0";
-const PUBLIC_DIR = path.join(__dirname, "..", "public");
+// No Vercel a pasta public/ é servida automaticamente.
+const SERVE_STATIC = process.env.SERVE_STATIC !== "0" && process.env.VERCEL !== "1";
+const PUBLIC_DIR = path.join(__dirname, "public");
 
 if (!process.env.ASAAS_API_KEY) {
   console.warn("Aviso: ASAAS_API_KEY não configurado em api/.env. O site sobe, mas a geração de Pix responde 503.");
@@ -35,7 +36,11 @@ if (SERVE_STATIC) {
   app.use((req, res) => res.status(404).sendFile(path.join(PUBLIC_DIR, "404.html")));
 }
 
-app.listen(PORT, () => {
-  console.log(`tudo.conecta.ai rodando em http://localhost:${PORT}`);
-  if (SERVE_STATIC) console.log(`Servindo os arquivos de ${PUBLIC_DIR}`);
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, () => {
+    console.log(`tudo.conecta.ai rodando em http://localhost:${PORT}`);
+    if (SERVE_STATIC) console.log(`Servindo os arquivos de ${PUBLIC_DIR}`);
+  });
+}
+
+module.exports = app;

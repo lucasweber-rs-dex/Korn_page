@@ -11,7 +11,7 @@ Site de vendas com dois planos (Mensal e Anual) e um checkout que gera cobrança
 Você precisa apenas do [Node.js 20 ou superior](https://nodejs.org) instalado. **Nenhuma chave, conta ou cadastro é necessário para ver o site funcionando.**
 
 ```bash
-npm run install:api     # instala as dependências (só na primeira vez)
+npm install             # instala as dependências (só na primeira vez)
 npm start               # sobe o site
 ```
 
@@ -42,9 +42,9 @@ public/                      tudo que o visitante vê (HTML, CSS, imagens)
   assets/js/checkout.js      validação dos campos e chamada da API
   assets/img/
 
-api/                         servidor
-  app.js                     as rotas /api/* e a integração com a Asaas
-  server.js                  inicialização; fora do Docker também entrega public/
+app.js                       as rotas /api/* e a integração com a Asaas
+server.js                    inicialização; fora do Docker também entrega public/
+api/                         credenciais locais e imagem Docker da API
   .env                       suas credenciais (não vai para o Git)
   .env.example               modelo do .env
 
@@ -56,7 +56,7 @@ docs/                        guia de publicação na VPS
 compose.yaml                 orquestração dos containers
 ```
 
-Regra prática: **conteúdo e visual ficam em `public/`, regras de pagamento em `api/app.js`.**
+Regra prática: **conteúdo e visual ficam em `public/`, regras de pagamento em `app.js`.**
 
 ---
 
@@ -77,13 +77,13 @@ Edite os arquivos em `public/` com qualquer editor e recarregue o navegador. Nã
 
 ⚠️ **O preço aparece em dois lugares e os dois precisam ser alterados juntos:**
 
-1. `api/app.js`, no objeto `PLANOS` — é o valor realmente cobrado.
+1. `app.js`, no objeto `PLANOS` — é o valor realmente cobrado.
 2. Os arquivos `public/checkout-*.html` e `public/index.html` — é o valor exibido.
 
 Se eles divergirem, o cliente vê um preço e paga outro.
 
 ```js
-// api/app.js
+// app.js
 const PLANOS = {
   mensal: { titulo: "Plano Mensal", valor: 24.9 },
   anual: { titulo: "Plano Anual", valor: 169.9 },
@@ -92,7 +92,7 @@ const PLANOS = {
 
 ### Adicionar um plano
 
-1. Acrescente a entrada em `PLANOS` (`api/app.js`).
+1. Acrescente a entrada em `PLANOS` (`app.js`).
 2. Duplique um `public/checkout-*.html`, ajuste título e preço e mude o `data-plano="..."` na `<section class="payment-box">` para a chave nova.
 3. Adicione o card e o link na seção "Escolha o seu plano" de `public/index.html`.
 
@@ -136,7 +136,7 @@ curl http://localhost:3001/api/saude
 | `POST` | `/api/pagamentos` | Cria a cobrança e devolve o QR Code. Corpo: `plano`, `nome`, `email`, `telefone`, `cpf` |
 | `GET` | `/api/pagamentos/:id` | Consulta o status: `pending`, `approved` ou `cancelled` |
 
-E-mail, celular e CPF são validados no navegador **e** novamente no servidor — a validação do navegador é só conveniência, quem decide é `api/app.js`.
+E-mail, celular e CPF são validados no navegador **e** novamente no servidor — a validação do navegador é só conveniência, quem decide é `app.js`.
 
 Depois de gerar o QR Code, a página consulta o status a cada 3 segundos por até 5 minutos e avisa quando o pagamento é confirmado.
 
@@ -165,7 +165,7 @@ O passo a passo de envio dos arquivos para a VPS está em [`docs/guia-atualizar-
 | Sintoma | Causa provável |
 |---|---|
 | `EADDRINUSE` ao iniciar | A porta já está ocupada. Mude `PORT` em `api/.env` ou feche o outro processo. |
-| `Cannot find module 'express'` | Faltou rodar `npm run install:api`. |
+| `Cannot find module 'express'` | Faltou rodar `npm install`. |
 | Botão "GERAR PIX" fica cinza | E-mail, celular ou CPF ainda estão inválidos — ele libera sozinho quando os três passarem. |
 | "Não foi possível gerar o Pix agora" | Chave da Asaas ausente, inválida ou vencida. O motivo exato aparece no terminal do servidor. |
 | Página abre sem estilo | Abriu o arquivo direto pelo Explorer. Use sempre `npm start` e o endereço `http://localhost:3001`. |
