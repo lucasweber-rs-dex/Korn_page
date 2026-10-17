@@ -142,7 +142,31 @@ Depois de gerar o QR Code, a página consulta o status a cada 3 segundos por at�
 
 ---
 
-## 6. Publicar em um servidor (Docker)
+## 6. Publicar na Vercel
+
+O site sobe como um app Express. O arquivo `server.js` entrega as páginas de `public/` e a API de Pix no mesmo processo. A configuração está em `vercel.json`.
+
+Na pasta do projeto, com a [CLI da Vercel](https://vercel.com/docs/cli) autenticada:
+
+```bash
+vercel link          # associa esta pasta ao projeto
+vercel --prod        # publica em produção
+```
+
+Cada push na branch `main` do GitHub também gera um deploy, depois que o repositório está conectado ao projeto na Vercel.
+
+A chave da Asaas não entra no Git. Configure no painel do projeto, em **Settings → Environment Variables**:
+
+| Variável | Valor |
+|---|---|
+| `ASAAS_API_KEY` | chave da conta Asaas |
+| `ASAAS_BASE_URL` | `https://api-sandbox.asaas.com/v3` em testes, `https://api.asaas.com/v3` em produção |
+
+Sem essas variáveis o site abre normalmente e o botão "GERAR PIX" responde que o pagamento ainda não está ativo.
+
+---
+
+## 7. Publicar em um servidor (Docker)
 
 Com Docker e Docker Compose instalados, na pasta do projeto:
 
@@ -160,7 +184,7 @@ O passo a passo de envio dos arquivos para a VPS está em [`docs/guia-atualizar-
 
 ---
 
-## 7. Se algo der errado
+## 8. Se algo der errado
 
 | Sintoma | Causa provável |
 |---|---|
